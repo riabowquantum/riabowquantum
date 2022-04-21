@@ -1,0 +1,113 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "title" : "СУПР.ИР API",
+    "description" : "Универсальная шина данных (DBI) предназначенная для интеграции Системы Управления Плановыми Работами с внешними системами. Реализована на базе Apache Kafka\n",
+    "termsOfService" : "https://en.wikipedia.org/wiki/Terms_of_service",
+    "contact" : {
+      "name" : "wladimir riabow",
+      "url" : "http://riabow.com/",
+      "email" : "riabowjob@gmail.com"
+    },
+    "license" : {
+      "name" : "CC Attribution-ShareAlike 4.0 (CC BY-SA 4.0)",
+      "url" : "https://habr.com/ru/post/243091/"
+    },
+    "version" : "1.1"
+  },
+  "servers" : [ {
+    "url" : "https://api.openweathermap.org/data/2.5/",
+    "description" : "Продуктивный сервер (Зона РТК)"
+  }, {
+    "url" : "http://beta.api.openweathermap.org/data/2.5/",
+    "description" : "Сервер службы эксплуатации РТК (Зона РТК)"
+  }, {
+    "url" : "http://some-other.api.openweathermap.org/data/2.5/",
+    "description" : "Сервер для интеграционных тестирований (Зона РТК)"
+  }, {
+    "url" : "http://some-other.api.openweathermap.org/data/2.5/",
+    "description" : "Тестовый сервер (Зона АЛЬТ-ЛАН)"
+  } ],
+  "paths" : {
+    "/checkStatus" : {
+      "get" : {
+        "tags" : [ "Общие методы для работы с API" ],
+        "summary" : "Проверяет доступ к серверу",
+        "description" : "Метод проверяет доступ к серверу. Входные параметры для него не требуются.",
+        "operationId" : "checkServerStatus",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found response",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Not found",
+                  "type" : "string",
+                  "example" : "Сервер не работает"
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/getDbiOptions" : {
+      "get" : {
+        "tags" : [ "Общие методы для работы с API" ],
+        "summary" : "Получает настройку DBI сервисов",
+        "description" : "Метод для получения данных о настройках DBI сервисов. Входные параметры для него не требуются.",
+        "operationId" : "getDbiOptions",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not found response",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Not found",
+                  "type" : "string",
+                  "example" : "Сервер не работает"
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Sample" : {
+        "title" : "Sample",
+        "type" : "object",
+        "properties" : {
+          "placeholder" : {
+            "type" : "string",
+            "description" : "Placeholder description"
+          }
+        }
+      }
+    }
+  }
+}
