@@ -65,7 +65,8 @@
             "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
           }
         },
-        "deprecated" : false
+        "deprecated" : false,
+        "security" : [ ]
       }
     },
     "/getDbiOptions" : {
@@ -391,7 +392,8 @@
             "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
           }
         },
-        "deprecated" : false
+        "deprecated" : false,
+        "security" : [ ]
       }
     }
   },
