@@ -28,13 +28,16 @@
     "url" : "http://some-other.api.openweathermap.org/data/2.5/",
     "description" : "Тестовый сервер (Зона АЛЬТ-ЛАН)"
   } ],
+  "security" : [ {
+    "privateKey" : [ ]
+  } ],
   "paths" : {
     "/checkStatus" : {
       "get" : {
         "tags" : [ "Общие методы для работы с API" ],
         "summary" : "Проверяет доступ к серверу",
         "description" : "Метод проверяет доступ к серверу. Входные параметры для него не требуются.",
-        "operationId" : "checkServerStatus",
+        "operationId" : "checkStatus",
         "responses" : {
           "200" : {
             "description" : "Successful response",
@@ -46,17 +49,20 @@
               }
             }
           },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
           "404" : {
-            "description" : "Not found response",
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "title" : "Not found",
-                  "type" : "string",
-                  "example" : "Сервер не работает"
-                }
-              }
-            }
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
           }
         },
         "deprecated" : false
@@ -79,17 +85,310 @@
               }
             }
           },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
           "404" : {
-            "description" : "Not found response",
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "title" : "Not found",
-                  "type" : "string",
-                  "example" : "Сервер не работает"
-                }
-              }
-            }
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/getSchemaByConfig" : {
+      "post" : {
+        "tags" : [ "Общие методы для работы с API" ],
+        "summary" : "Запрашивает схему JSON по Id конфигурации из СУПР.ИР",
+        "description" : "Запрашивает схему JSON по Id конфигурации из СУПР.ИР",
+        "operationId" : "getSchemaByConfig",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/updateDbiOptions" : {
+      "post" : {
+        "tags" : [ "Общие методы для работы с API" ],
+        "summary" : "Обновляет настройку DBI сервисов",
+        "description" : "Обновляет настройку DBI сервисов",
+        "operationId" : "updateDbiOptions",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/validateData" : {
+      "post" : {
+        "tags" : [ "Методы для работы с сообщениями и топиками" ],
+        "summary" : "Валидирует сообщения до публикации в СУПР.ИР",
+        "description" : "Валидирует сообщения до публикации в СУПР.ИР",
+        "operationId" : "validateData",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/publishData" : {
+      "post" : {
+        "tags" : [ "Методы для работы с сообщениями и топиками" ],
+        "summary" : "Публикует сообщения в топике СУПР.ИР",
+        "description" : "Публикует сообщения в топике СУПР.ИР",
+        "operationId" : "publishData",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/getData" : {
+      "post" : {
+        "tags" : [ "Методы для работы с сообщениями и топиками" ],
+        "summary" : "Запрашивает сообщения из топика СУПР.ИР",
+        "description" : "Запрашивает сообщения из топика СУПР.ИР",
+        "operationId" : "getData",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/confirmData" : {
+      "post" : {
+        "tags" : [ "Методы для работы с сообщениями и топиками" ],
+        "summary" : "Подтверждает получение сообщений в СУПР.ИР",
+        "description" : "Подтверждает получение сообщений в СУПР.ИР",
+        "operationId" : "confirmData",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/queryToSystem" : {
+      "post" : {
+        "tags" : [ "Методы для работы с сообщениями и топиками" ],
+        "summary" : "Индивидуальный запрос к системе",
+        "description" : "Индивидуальный запрос к системе",
+        "operationId" : "queryToSystem",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/getQueryToProcess" : {
+      "post" : {
+        "tags" : [ "Методы для работы с сообщениями и топиками" ],
+        "summary" : "Запрашивает индивидуальные запросы к системе (Long Poll)",
+        "description" : "Запрашивает индивидуальные запросы к системе (Long Poll)",
+        "operationId" : "getQueryToProcess",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/answerToQuery" : {
+      "post" : {
+        "tags" : [ "Методы для работы с сообщениями и топиками" ],
+        "summary" : "Отвечает на индивидуальный запрос",
+        "description" : "Отвечает на индивидуальный запрос",
+        "operationId" : "answerToQuery",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+          }
+        },
+        "deprecated" : false
+      }
+    },
+    "/rewindConfigToTime" : {
+      "post" : {
+        "tags" : [ "Методы для работы с сообщениями и топиками" ],
+        "summary" : "Переводит оффсет топиков",
+        "description" : "Переводит оффсет топиков в конфигурации для конкретной группы на конкретное время",
+        "operationId" : "rewindConfigToTime",
+        "responses" : {
+          "200" : {
+            "description" : "Successful response"
+          },
+          "400" : {
+            "description" : "Bad Request неверный формат запроса"
+          },
+          "403" : {
+            "description" : "Forbidden. Запрещено (не уполномочен)"
+          },
+          "404" : {
+            "description" : "Not found. Объект не найден"
+          },
+          "500" : {
+            "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+          },
+          "503" : {
+            "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
           }
         },
         "deprecated" : false
@@ -107,6 +406,31 @@
             "description" : "Placeholder description"
           }
         }
+      }
+    },
+    "responses" : {
+      "400" : {
+        "description" : "Bad Request неверный формат запроса"
+      },
+      "403" : {
+        "description" : "Forbidden. Запрещено (не уполномочен)"
+      },
+      "404" : {
+        "description" : "Not found. Объект не найден"
+      },
+      "500" : {
+        "description" : "Internal Server Error: система не может обработать запрос. Повторные обращения не требуется"
+      },
+      "503" : {
+        "description" : "Service Unavailable: система временно недоступна. Требуется повторить запрос"
+      }
+    },
+    "securitySchemes" : {
+      "privateKey" : {
+        "type" : "apiKey",
+        "description" : "Для авторизации в системе, при обращении к методам где она необходима, требуется передавать в URL параметр privateKey.",
+        "name" : "apiKey",
+        "in" : "header"
       }
     }
   }
